@@ -17,10 +17,9 @@
 package com.exorath.serverarchitect;
 
 import com.exorath.serverarchitect.configProvider.ConfigProvider;
-import com.exorath.serverarchitect.loader.Loader;
+import com.exorath.serverarchitect.loader.ConfigHandler;
 
 import java.io.*;
-import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,51 +28,45 @@ import java.util.Map;
  */
 public class ServerArchitect {
     private Map<String, Object> config;
-    private Map<String, Loader> loadersByKey = new HashMap<>();
+    private Map<String, ConfigHandler> loadersByKey = new HashMap<>();
 
     public ServerArchitect(ConfigProvider configProvider) {
         this.config = configProvider.getConfig();
     }
 
     public void start() {
-        for (Map.Entry<String, Loader> loaderByKey : loadersByKey.entrySet()) {
+        for (Map.Entry<String, ConfigHandler> loaderByKey : loadersByKey.entrySet()) {
             Map<String, Object> configSection = (Map) config.get(loaderByKey.getKey());
-            if (configSection == null)//There is no configuration for this loader
+            if (configSection == null)//There is no configuration for this configHandler
                 continue;
-            Loader loader = loaderByKey.getValue();
+            ConfigHandler configHandler = loaderByKey.getValue();
 
-            loadPluginsFromLoader(loader, configSection);
-            loadMapsFromLoader(loader, configSection);
-            loadJarFromLoader(loader, configSection);
+            loadPluginsFromLoader(configHandler, configSection);
+            loadMapsFromLoader(configHandler, configSection);
+            loadJarFromLoader(configHandler, configSection);
         }
     }
 
-    private void loadPluginsFromLoader(Loader loader, Map<String, Object> configSection) {
+    private void loadPluginsFromLoader(ConfigHandler configHandler, Map<String, Object> configSection) {
         Map<String, Object> pluginSection = (Map) configSection.get("plugins");
         if (pluginSection != null)
-            loader.loadPlugins(configSection, new File("plugins/"));
-    }
-    private void loadMapsFromLoader(Loader loader, Map<String, Object> configSection) {
-        Map<String, Object> mapSection = (Map) configSection.get("maps");
-        if (mapSection != null)
-            loader.loadMaps(configSection, new File("./"));
+            configHandler.loadPlugins(configSection, new File("plugins/"));
     }
 
-    private void loadJarFromLoader(Loader loader, Map<String, Object> configSection) {
-        Map<String, Object> jarSection = (Map) configSection.get("jar");
-        if (jarSection != null) {
-            InputStream jarInput = loader.loadJar(configSection);
-            if(jarInput == null)
-                return;
-            try {
-                Files.copy(jarInput, new File("./server.jar").toPath());
-            } catch (IOException e) {
-                throw new IllegalStateException(e);
-            }
-        }
+    private void loadMapsFromLoader(ConfigHandler configHandler, Map<String, Object> configSection) {
+        Map<String, Object> mapSection = (Map) configSection.get("maps");
+        if (mapSection != null)
+            configHandler.loadMaps(configSection, new File("./"));
     }
-    public void withLoader(String key, Loader loader) {
-        loadersByKey.put(key, loader);
+
+    private void loadJarFromLoader(ConfigHandler configHandler, Map<String, Object> configSection) {
+        Map<String, Object> jarSection = (Map) configSection.get("jar");
+        if (jarSection != null)
+            configHandler.loadJar(configSection, new File("server.jar"));
+    }
+
+    public void withLoader(String key, ConfigHandler configHandler) {
+        loadersByKey.put(key, configHandler);
     }
 
 }

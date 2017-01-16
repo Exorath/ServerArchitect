@@ -1,0 +1,14 @@
+gitlab:
+  maps:
+    iwmap1:
+      uri: http://gitlab.com/exorath/maps_iw
+      dir: iwmap1
+  maps:
+    iwmap2:
+      uri: http://gitlab.com/exorath/maps_iw2
+      dir: iwmap2
+  plugins:
+    exocore:
+      uri: http://gitlab.com/exorath/exocore
+    iw:
+      uri: http://gitlab.com/exorath/iw

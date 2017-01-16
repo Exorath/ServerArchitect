@@ -16,18 +16,18 @@
 
 package com.exorath.serverarchitect.loader;
 
+
 import java.io.File;
 
-import java.io.InputStream;
 import java.util.Map;
 
 /**
  * Created by toonsev on 11/23/2016.
  */
-public interface Loader {
+public interface ConfigHandler {
     default void loadPlugins(Map<String, Object> configSection, File pluginsDir){};
 
-    default void loadMaps(Map<String, Object> configSection, File mapsDir){};
+    default void loadMaps(Map<String, Object> configSection, File mapsDir) {};
 
-    default InputStream loadJar(Map<String, Object> configSection){return null;};
+    default void loadJar(Map<String, Object> configSection, File jarFile){};
 }
