@@ -30,12 +30,11 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    <dependency>
-        <groupId>com.amazonaws</groupId>
-        <artifactId>aws-java-sdk-s3</artifactId>
-    </dependency>
     <dependencies>
-
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-s3</artifactId>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.gitlab/java-gitlab-api -->
         <dependency>
             <groupId>org.gitlab</groupId>
