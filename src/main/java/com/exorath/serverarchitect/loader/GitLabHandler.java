@@ -36,7 +36,7 @@ public class GitLabHandler implements ConfigHandler {
         MapType type = configSection.containsKey(TYPE_ID) ? MapType.valueOf((String) configSection.get(TYPE_ID)) : MapType.MAP_IN_REPO;
         switch(type){
             case ALL_MAPS_IN_REPO:
-                loadMaps()
+                //todo fix this
                 break;
 
             case MAP_IN_REPO:
