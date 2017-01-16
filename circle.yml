@@ -1,0 +1,9 @@
+general:
+  artifacts:
+    - "target/" # relative to the build directory
+machine:
+  java:
+    version: openjdk8
+test:
+ override:
+ - mvn clean package
