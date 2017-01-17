@@ -11,3 +11,4 @@ deploy:
   file: target
   on:
     repo: Exorath/ServerArchitect
+
