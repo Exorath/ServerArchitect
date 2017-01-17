@@ -4,3 +4,12 @@ jdk:
 script: mvn clean package
 addons:
   artifacts: true
+deploy:
+  provider: releases
+  api_key: "GITHUB OAUTH TOKEN"
+  file:
+  - "target/ServerArchitect-*.jar"
+  file_glob: "true"
+  skip_cleanup: true
+  on:
+    tags: true
