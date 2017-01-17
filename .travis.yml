@@ -13,4 +13,3 @@ deploy:
   file_glob: true
   on:
     repo: Exorath/ServerArchitect
-
