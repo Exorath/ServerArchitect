@@ -12,3 +12,9 @@ gitlab:
       uri: http://gitlab.com/exorath/exocore
     iw:
       uri: http://gitlab.com/exorath/iw
+github:
+  plugins:
+    ExoCore:
+      oauth: ENV
+      name: toonsevrin/ExoCore
+      jar: MapPlugin-(.*).jar

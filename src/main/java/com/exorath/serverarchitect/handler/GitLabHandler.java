@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.exorath.serverarchitect.loader;
+package com.exorath.serverarchitect.handler;
 
 import java.io.File;
 import java.util.Map;

@@ -14,20 +14,20 @@
  *    limitations under the License.
  */
 
-package com.exorath.serverarchitect.loader;
+package com.exorath.serverarchitect.handler;
+
 
 import java.io.File;
+
 import java.util.Map;
 
 /**
- * Created by toonsev on 11/25/2016.
+ * Created by toonsev on 11/23/2016.
  */
-public class S3Handler implements ConfigHandler {
-    public S3Handler(){
-        
-    }
-    @Override
-    public void loadMaps(Map<String, Object> configSection, File mapsDir) {
+public interface ConfigHandler {
+    default void loadPlugins(Map<String, Object> configSection, File pluginsDir){};
 
-    }
+    default void loadMaps(Map<String, Object> configSection, File mapsDir) {};
+
+    default void loadJar(Map<String, Object> configSection, File jarFile){};
 }

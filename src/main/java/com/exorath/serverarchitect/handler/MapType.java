@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Exorath
+ * Copyright 2016 Exorath
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -14,20 +14,20 @@
  *    limitations under the License.
  */
 
-package com.exorath.serverarchitect.loader;
-
-
-import java.io.File;
-import java.util.Map;
+package com.exorath.serverarchitect.handler;
 
 /**
- * Created by toonsev on 1/19/2017.
+ * Created by toonsev on 11/24/2016.
  */
-public class GitHubHandler implements ConfigHandler {
-    @Override
-    public void loadPlugins(Map<String, Object> configSection, File pluginsDir) {
-
-
+public enum MapType {
+    ALL_MAPS_IN_REPO("all"),
+    MAP_IN_REPO("map");
+    private String id;
+    MapType(String id){
+        this.id = id;
     }
 
+    public String getId() {
+        return id;
+    }
 }

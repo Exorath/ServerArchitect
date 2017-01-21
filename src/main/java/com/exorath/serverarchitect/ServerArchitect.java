@@ -17,7 +17,7 @@
 package com.exorath.serverarchitect;
 
 import com.exorath.serverarchitect.configProvider.ConfigProvider;
-import com.exorath.serverarchitect.loader.ConfigHandler;
+import com.exorath.serverarchitect.handler.ConfigHandler;
 
 import java.io.*;
 import java.util.HashMap;
@@ -28,14 +28,15 @@ import java.util.Map;
  */
 public class ServerArchitect {
     private Map<String, Object> config;
-    private Map<String, ConfigHandler> loadersByKey = new HashMap<>();
+    private Map<String, ConfigHandler> handlersByKey = new HashMap<>();
 
     public ServerArchitect(ConfigProvider configProvider) {
         this.config = configProvider.getConfig();
     }
 
     public void start() {
-        for (Map.Entry<String, ConfigHandler> loaderByKey : loadersByKey.entrySet()) {
+        for (Map.Entry<String, ConfigHandler> loaderByKey : handlersByKey.entrySet()) {
+            System.out.println("ServerArchitect is now loading " + loaderByKey.getKey() + " config sections.");
             Map<String, Object> configSection = (Map) config.get(loaderByKey.getKey());
             if (configSection == null)//There is no configuration for this configHandler
                 continue;
@@ -50,23 +51,23 @@ public class ServerArchitect {
     private void loadPluginsFromLoader(ConfigHandler configHandler, Map<String, Object> configSection) {
         Map<String, Object> pluginSection = (Map) configSection.get("plugins");
         if (pluginSection != null)
-            configHandler.loadPlugins(configSection, new File("plugins/"));
+            configHandler.loadPlugins(pluginSection, new File("plugins/"));
     }
 
     private void loadMapsFromLoader(ConfigHandler configHandler, Map<String, Object> configSection) {
         Map<String, Object> mapSection = (Map) configSection.get("maps");
         if (mapSection != null)
-            configHandler.loadMaps(configSection, new File("./"));
+            configHandler.loadMaps(mapSection, new File("./"));
     }
 
     private void loadJarFromLoader(ConfigHandler configHandler, Map<String, Object> configSection) {
         Map<String, Object> jarSection = (Map) configSection.get("jar");
         if (jarSection != null)
-            configHandler.loadJar(configSection, new File("server.jar"));
+            configHandler.loadJar(jarSection, new File("server.jar"));
     }
 
-    public void withLoader(String key, ConfigHandler configHandler) {
-        loadersByKey.put(key, configHandler);
+    public void withHandler(String key, ConfigHandler configHandler) {
+        handlersByKey.put(key, configHandler);
     }
 
 }

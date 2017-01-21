@@ -17,13 +17,20 @@
 package com.exorath.serverarchitect;
 
 import com.exorath.serverarchitect.configProvider.YamlConfigProvider;
+import com.exorath.serverarchitect.handler.GitHubHandler;
 
 /**
  * Created by toonsev on 11/23/2016.
  */
 public class Main {
     public static void main(String[] args) {
-        ServerArchitect architect = new ServerArchitect(new YamlConfigProvider("src/test.yml"));
+        String configLoc = System.getenv("SA_CONFIG_FILE");
+        if(configLoc == null){
+            System.out.println("No SA_CONFIG_FILE environment field, defaulting to architect.yml.");
+            configLoc = "architect.yml";
+        }
+        ServerArchitect architect = new ServerArchitect(new YamlConfigProvider(configLoc));
+        architect.withHandler("github", new GitHubHandler());
         try {
             architect.start();
         }catch (Exception e){

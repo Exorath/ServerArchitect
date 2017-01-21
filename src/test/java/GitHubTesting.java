@@ -22,6 +22,7 @@ import org.kohsuke.github.GitHub;
 import java.io.IOException;
 
 /**
+ *
  * Created by toonsev on 1/19/2017.
  */
 public class GitHubTesting {
@@ -29,7 +30,7 @@ public class GitHubTesting {
     public void testing(){
         GitHub gitHub = null;
         try {
-            gitHub = GitHub.connectUsingOAuth("");
+            gitHub = GitHub.connectUsingOAuth(System.getenv("ghoath"));
 
             for (GHRepository ghRepository : gitHub.searchRepositories().user("Exorath").list()) {
                 System.out.println(ghRepository.getName() + ":");
