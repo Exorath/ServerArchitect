@@ -1,4 +1,4 @@
-# ServerArchitect [![CircleCI](https://circleci.com/gh/Exorath/ServerArchitect.svg?style=svg)](https://circleci.com/gh/Exorath/ServerArchitect) 
+# ServerArchitect [![Docker Automated build](https://img.shields.io/docker/automated/exorath/serverarchitect.svg)]()
 The ServerArchitect consumes a template file and produces a ready-to-operate spigot/bungee server!
 
 
