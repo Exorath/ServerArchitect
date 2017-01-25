@@ -1,6 +1,6 @@
 #!/bin/bash
 
 echo "Starting server architect..."
-java -jar target/ServerArchitect.jar 
-echo $?
+java -jar "$SERVERDIR"/target/ServerArchitect.jar 
+exit $?
 
