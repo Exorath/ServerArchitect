@@ -16,5 +16,5 @@ github:
   plugins:
     ExoCore:
       oauth: ENV
-      name: toonsevrin/ExoCore
+      name: exorath/MapPlugin
       jar: MapPlugin-(.*).jar
