@@ -18,7 +18,12 @@
                 <executions>
                     <execution>
                         <configuration>
-                        <finalName>ServerArchitect</finalName>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.exorath.serverarchitect.Main</mainClass>
+                                </transformer>
+                            </transformers>     
+                            <finalName>ServerArchitect</finalName>
                             <filters>
                                 <filter>
                                     <artifact>ServerArchitect:ServerArchitect</artifact>
