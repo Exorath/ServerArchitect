@@ -6,4 +6,5 @@ COPY serverarchitect /usr/bin/
 COPY startserver /usr/bin/
 ENV SERVERDIR /usr/src/server/
 WORKDIR /usr/src/server/
+RUN chmod +x /usr/bin/serverarchitect; chmod +x /usr/bin/startserver; 
 RUN mvn package
