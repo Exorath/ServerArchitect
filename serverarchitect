@@ -2,5 +2,5 @@
 
 echo "Starting server architect..."
 java -jar "$SERVERDIR"/target/ServerArchitect.jar 
-echo $?
+exit $?
 
