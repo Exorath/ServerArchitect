@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "Starting server architect..."
+java -jar ServerArchitect.jar 
+; echo $? #this is a test
