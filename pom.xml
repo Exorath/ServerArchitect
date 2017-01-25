@@ -17,6 +17,7 @@
                 </configuration>
                 <executions>
                     <execution>
+                        <finalName>ServerArchitect</finalName>
                         <configuration>
                             <filters>
                                 <filter>
