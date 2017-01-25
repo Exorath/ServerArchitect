@@ -2,7 +2,7 @@ language: ruby
 sudo: required
 services:
   - docker
-install:
+script:
   - docker build -t serverarchitect .
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
