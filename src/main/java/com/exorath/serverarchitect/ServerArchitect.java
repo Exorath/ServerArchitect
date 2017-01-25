@@ -27,17 +27,21 @@ import java.util.Map;
  * Created by toonsev on 11/23/2016.
  */
 public class ServerArchitect {
-    private Map<String, Object> config;
+    private Map<String, Object> handlersConfig;
     private Map<String, ConfigHandler> handlersByKey = new HashMap<>();
 
     public ServerArchitect(ConfigProvider configProvider) {
-        this.config = configProvider.getConfig();
+        Map<String, Object> topLevelConfig = configProvider.getConfig();
+        if(topLevelConfig != null)
+            handlersConfig = (Map) topLevelConfig.get("handlers");
     }
 
     public void start() {
+        if(handlersConfig == null)
+            return;
         for (Map.Entry<String, ConfigHandler> loaderByKey : handlersByKey.entrySet()) {
             System.out.println("ServerArchitect is now loading " + loaderByKey.getKey() + " config sections.");
-            Map<String, Object> configSection = (Map) config.get(loaderByKey.getKey());
+            Map<String, Object> configSection = (Map) handlersConfig.get(loaderByKey.getKey());
             if (configSection == null)//There is no configuration for this configHandler
                 continue;
             ConfigHandler configHandler = loaderByKey.getValue();
