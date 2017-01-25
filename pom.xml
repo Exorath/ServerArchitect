@@ -17,8 +17,8 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <finalName>ServerArchitect</finalName>
                         <configuration>
+                        <finalName>ServerArchitect</finalName>
                             <filters>
                                 <filter>
                                     <artifact>ServerArchitect:ServerArchitect</artifact>
