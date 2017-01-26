@@ -17,6 +17,7 @@
 package com.exorath.serverarchitect.handler;
 
 
+import com.exorath.serverarchitect.lib.StringLoader;
 import com.mashape.unirest.http.Unirest;
 import org.kohsuke.github.GHAsset;
 import org.kohsuke.github.GHRelease;
@@ -48,18 +49,17 @@ public class GitHubHandler implements ConfigHandler {
 
     private void loadPlugin(Map<String, Object> configSection, File pluginsDir) {
         try {
-            if (!configSection.containsKey("name") || !configSection.containsKey("jar")) {
+            String name = StringLoader.getValue(configSection, "name");
+            String jarFilter = StringLoader.getValue(configSection, "jar");
+            String oauth = StringLoader.getValue(configSection, "oauth");
+
+            if (name == null || jarFilter == null) {
                 System.out.println("GitHub plugin section does not contain 'name' or 'jar' field");
                 System.exit(400);
             }
-            String name = (String) configSection.get("name");
-            String jarFilter = (String) configSection.get("jar");
-            String oauth = configSection.containsKey("oauth") ? (String) configSection.get("oauth") : null;
-            if(oauth.equals("ENV"))
-                oauth = System.getenv("GITHUB_OAUTH");
             GitHub gitHub = oauth == null ? GitHub.connectAnonymously() : GitHub.connectUsingOAuth(oauth);
             if (gitHub == null) {
-                System.out.println("GitHub plugin section " + name + "section does not contain 'oauth' field");
+                System.out.println("GitHub plugin section " + name + "section failed to create a github connection.");
                 System.exit(400);
             }
             GHRepository ghRepository = gitHub.getRepository(name);
