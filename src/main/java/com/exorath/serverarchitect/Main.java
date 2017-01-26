@@ -18,6 +18,7 @@ package com.exorath.serverarchitect;
 
 import com.exorath.serverarchitect.configProvider.YamlConfigProvider;
 import com.exorath.serverarchitect.handler.GitHubHandler;
+import com.exorath.serverarchitect.handler.S3Handler;
 
 /**
  * Created by toonsev on 11/23/2016.
@@ -30,6 +31,7 @@ public class Main {
             configLoc = "architect.yml";
         }
         ServerArchitect architect = new ServerArchitect(new YamlConfigProvider(configLoc));
+        architect.withHandler("amazons3", new S3Handler());
         architect.withHandler("github", new GitHubHandler());
         try {
             architect.start();
