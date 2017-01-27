@@ -54,8 +54,10 @@ public class ServerArchitect {
 
     private void loadPluginsFromLoader(ConfigHandler configHandler, Map<String, Object> configSection) {
         Map<String, Object> pluginSection = (Map) configSection.get("plugins");
+        File pluginDir = new File("plugins/");
+        pluginDir.mkdir();
         if (pluginSection != null)
-            configHandler.loadPlugins(pluginSection, new File("plugins/"));
+            configHandler.loadPlugins(pluginSection, pluginDir);
     }
 
     private void loadMapsFromLoader(ConfigHandler configHandler, Map<String, Object> configSection) {

@@ -17,6 +17,15 @@ loaders:
     maps:
       env: prod
       prefix: hubs.lobby
-    
+  amazons3:
+    jar:
+      bucketName: exospigotjars
+      objectId: spigot.jar
+      accessKeyId:
+        env: AWS_ACCESS_KEY_ID
+      secretKey:
+        env: AWS_SECRET_KEY
+      region:
+        env: AWS_REGION
 ```
 

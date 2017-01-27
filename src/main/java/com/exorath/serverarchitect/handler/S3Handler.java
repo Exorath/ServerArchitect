@@ -26,7 +26,6 @@ import com.amazonaws.services.s3.model.S3Object;
 import com.exorath.serverarchitect.lib.StringLoader;
 import org.apache.commons.io.IOUtils;
 
-import javax.naming.ConfigurationException;
 import java.io.*;
 import java.util.Map;
 

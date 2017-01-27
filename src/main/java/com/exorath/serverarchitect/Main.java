@@ -39,6 +39,5 @@ public class Main {
             e.printStackTrace();
             System.exit(1);//Exit unsuccessfully, that way the caller knows the build failed.
         }
-
     }
 }
