@@ -73,6 +73,12 @@ public class S3Handler implements ConfigHandler {
         String accessKeyId = StringLoader.getValue(configSection, "accessKeyId");
         String secretKey = StringLoader.getValue(configSection, "secretKey");
         String regionId = StringLoader.getValue(configSection, "region");
+        System.out.println("jar specification: ");
+        System.out.println(" bucketName: " + bucketName);
+        System.out.println(" objectId: " + objectId);
+        System.out.println(" accessKeyId: " + accessKeyId);
+        System.out.println(" secretKey==null: " + secretKey == null);
+        System.out.println(" region: " + regionId);
         if (bucketName == null || objectId == null || accessKeyId == null || secretKey == null || regionId == null) {
             System.out.println("ServerArchitect: S3 jar config value not found.");
             System.exit(1);
