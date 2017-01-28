@@ -19,6 +19,7 @@ package com.exorath.serverarchitect.handler;
 
 import com.exorath.serverarchitect.lib.StringLoader;
 import com.mashape.unirest.http.Unirest;
+import com.sun.corba.se.spi.orbutil.fsm.Input;
 import org.kohsuke.github.GHAsset;
 import org.kohsuke.github.GHRelease;
 import org.kohsuke.github.GHRepository;
@@ -72,18 +73,19 @@ public class GitHubHandler implements ConfigHandler {
                 System.out.println("GitHub jar release " + name + " doesn't exist.");
                 System.exit(404);
             }
-            System.out.print("Found GitHub plugin jar " + jarAsset.getName() + " which will be downloaded from " + jarAsset.getUrl()+ "...");
+            System.out.print("Found GitHub plugin jar " + jarAsset.getName() + " which will be downloaded from " + jarAsset.getUrl() + "...");
 
-            InputStream downloadStream = Unirest.get(jarAsset.getUrl().toString())
+            try (InputStream downloadStream = Unirest.get(jarAsset.getUrl().toString())
                     .queryString("access_token", oauth)
                     .header("Accept", "application/octet-stream")
-                    .asBinary().getBody();
-            ReadableByteChannel rbc = Channels.newChannel(downloadStream);
-            FileOutputStream fos = new FileOutputStream(new File(pluginsDir, jarAsset.getName()));
-            fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-            System.out.println(" Downloaded.");
-
-
+                    .asBinary().getBody()) {
+                try (ReadableByteChannel rbc = Channels.newChannel(downloadStream)) {
+                    try (FileOutputStream fos = new FileOutputStream(new File(pluginsDir, jarAsset.getName()))) {
+                        fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+                        System.out.println(" Downloaded.");
+                    }
+                }
+            }
             System.out.println("GitHub Rate-Limit:" + gitHub.getRateLimit().remaining + " API calls remaining");
         } catch (Exception e) {
             e.printStackTrace();
