@@ -25,10 +25,7 @@ import org.kohsuke.github.GHRelease;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.util.Map;
@@ -79,11 +76,9 @@ public class GitHubHandler implements ConfigHandler {
                     .queryString("access_token", oauth)
                     .header("Accept", "application/octet-stream")
                     .asBinary().getBody()) {
-                try (ReadableByteChannel rbc = Channels.newChannel(downloadStream)) {
-                    try (FileOutputStream fos = new FileOutputStream(new File(pluginsDir, jarAsset.getName()))) {
-                        fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+                    try (FileOutputStream fileOutputStream = new FileOutputStream(new File(pluginsDir, jarAsset.getName()))) {
+                        copyStream(downloadStream, fileOutputStream);
                         System.out.println(" Downloaded.");
-                    }
                 }
             }
             System.out.println("GitHub Rate-Limit:" + gitHub.getRateLimit().remaining + " API calls remaining");
@@ -91,8 +86,6 @@ public class GitHubHandler implements ConfigHandler {
             e.printStackTrace();
             System.exit(400);
         }
-
-
     }
 
     private GHAsset getJar(GHRepository repository, String jarRegex) throws IOException {
@@ -104,5 +97,13 @@ public class GitHubHandler implements ConfigHandler {
             }
         }
         return null;
+    }
+
+    public static void copyStream(InputStream input, OutputStream output) throws IOException {
+        byte[] buffer = new byte[1024]; // Adjust if you want
+        int bytesRead;
+        while ((bytesRead = input.read(buffer)) != -1) {
+            output.write(buffer, 0, bytesRead);
+        }
     }
 }
