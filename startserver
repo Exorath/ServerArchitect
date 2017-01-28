@@ -1,9 +1,10 @@
 #!/bin/bash
-echo "startserver v0.0.1 initiated."
+echo "startserver v0.0.2 initiated."
 
 createEULA() {
   if [ ! -f eula.txt  ] ; then
-       echo '#EULA created by script\neula=true' > eula.txt
+       echo "eula=true" > eula.txt
+       echo "updated eula.txt"
   fi
 }
 
