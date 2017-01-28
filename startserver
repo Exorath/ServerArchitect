@@ -1,3 +1,23 @@
+#!/bin/bash
+
+createEULA() {
+  if [ ! -f eula.txt  ] ; then
+       echo '#EULA created by script\neula=true' > $MC_DIR/eula.txt
+  fi
+}
+
+# EULA stuff
+echo "checking eula..."
+eula=`getopt --eula`
+if [ eula != "TRUE" ] ; then
+  echo "ERROR: EULA was not accepted, add the --eula=true argument."
+  exit 1
+fi
+createEULA
+echo "EULA accepted."
+
+# Starting server stuff
 echo "starting server..."
 java -jar server.jar
 echo "server is terminated."
+
