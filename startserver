@@ -3,7 +3,7 @@ echo "startserver v0.0.1 initiated."
 
 createEULA() {
   if [ ! -f eula.txt  ] ; then
-       echo '#EULA created by script\neula=true' > $MC_DIR/eula.txt
+       echo '#EULA created by script\neula=true' > eula.txt
   fi
 }
 
