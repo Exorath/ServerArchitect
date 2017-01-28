@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "startserver v0.0.1 initiated."
 
 createEULA() {
   if [ ! -f eula.txt  ] ; then
@@ -8,7 +9,7 @@ createEULA() {
 
 # EULA stuff
 echo "checking eula..."
-if [ $0 == "--eula==TRUE"] ; then
+if [ $0 == "--eula==TRUE" ] ; then
   echo "ERROR: EULA was not accepted, add the --eula=TRUE argument."
   exit 1
 fi
