@@ -8,9 +8,8 @@ createEULA() {
 
 # EULA stuff
 echo "checking eula..."
-eula=`getopt --eula`
-if [ eula != "TRUE" ] ; then
-  echo "ERROR: EULA was not accepted, add the --eula=true argument."
+if [ $0 == "--eula==TRUE"] ; then
+  echo "ERROR: EULA was not accepted, add the --eula=TRUE argument."
   exit 1
 fi
 createEULA
