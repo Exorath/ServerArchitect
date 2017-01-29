@@ -55,7 +55,14 @@ public class GitHubHandler implements ConfigHandler {
                 System.out.println("GitHub plugin section does not contain 'name' or 'jar' field");
                 System.exit(400);
             }
-            GitHub gitHub = oauth == null ? GitHub.connectAnonymously() : GitHub.connectUsingOAuth(oauth);
+            GitHub gitHub = null;
+            if(oauth == null){
+                System.out.println("GitHub is authenticating anonymously.");
+                gitHub = GitHub.connectAnonymously();
+            }else{
+                System.out.println("GitHub is connecting with oauth.");
+                gitHub = GitHub.connectUsingOAuth(oauth);
+            }
             if (gitHub == null) {
                 System.out.println("GitHub plugin section " + name + "section failed to create a github connection.");
                 System.exit(400);
