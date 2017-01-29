@@ -76,8 +76,11 @@ public class GitHubHandler implements ConfigHandler {
                     .queryString("access_token", oauth)
                     .header("Accept", "application/octet-stream")
                     .asBinary().getBody()) {
-                    try (FileOutputStream fileOutputStream = new FileOutputStream(new File(pluginsDir, jarAsset.getName()))) {
+                    File pluginFile = new File(pluginsDir, jarAsset.getName());
+                    try (FileOutputStream fileOutputStream = new FileOutputStream(pluginFile)) {
                         copyStream(downloadStream, fileOutputStream);
+                        if(!pluginFile.setReadable(true))
+                            throw new IllegalStateException("Failed to make a plugin jar readable");
                         System.out.println(" Downloaded.");
                 }
             }
