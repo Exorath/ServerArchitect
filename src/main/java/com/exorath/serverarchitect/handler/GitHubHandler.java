@@ -79,9 +79,10 @@ public class GitHubHandler implements ConfigHandler {
                     File pluginFile = new File(pluginsDir, jarAsset.getName());
                     try (FileOutputStream fileOutputStream = new FileOutputStream(pluginFile)) {
                         copyStream(downloadStream, fileOutputStream);
-                        if(!pluginFile.setReadable(true))
+                        if(!pluginFile.setReadable(true, false))
                             throw new IllegalStateException("Failed to make a plugin jar readable");
-                        System.out.println(" Downloaded.");
+
+                        System.out.println(" Downloaded (size: " + pluginFile.length() + " bytes).");
                 }
             }
             System.out.println("GitHub Rate-Limit:" + gitHub.getRateLimit().remaining + " API calls remaining");
