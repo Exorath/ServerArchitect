@@ -5,7 +5,7 @@ The ServerArchitect consumes a template file and produces a ready-to-operate spi
 ##config
 
 ```yaml
-loaders:
+handlers:
   github:
     plugins:
       token: <oathToken>
@@ -13,10 +13,20 @@ loaders:
         name: ConnectorPlugin
         jar: ConnectorPlugin-*.jar
   mapservice:
-    address: <http address>
     maps:
-      env: prod
-      prefix: hubs.lobby
+      lobbyMaps:
+        address: <http address>
+        type: multi
+        prefix: hubs.lobby
+        envId: prod
+        userId: <userId>
+      aSingleMap:
+        address: <http address>
+        type: single
+        mapId: ajk.parkour.world1
+        envId: prod
+        version: <optional version>
+        userId: <userId>
   amazons3:
     jar:
       bucketName: exospigotjars

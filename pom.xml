@@ -69,7 +69,18 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
     <dependencies>
+        <dependency>
+            <groupId>com.github.Exorath</groupId>
+            <artifactId>MapService</artifactId>
+            <version>0.1.5</version>
+        </dependency>
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk-s3</artifactId>
@@ -112,6 +123,12 @@
         <artifactId>unirest-java</artifactId>
         <version>1.4.9</version>
     </dependency>
+
+        <dependency>
+            <groupId>com.github.Exorath</groupId>
+            <artifactId>MapService</artifactId>
+            <version>0.1.6</version>
+        </dependency>
 
     </dependencies>
 </project>

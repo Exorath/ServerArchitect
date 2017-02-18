@@ -18,6 +18,7 @@ package com.exorath.serverarchitect;
 
 import com.exorath.serverarchitect.configProvider.YamlConfigProvider;
 import com.exorath.serverarchitect.handler.GitHubHandler;
+import com.exorath.serverarchitect.handler.MapServiceHandler;
 import com.exorath.serverarchitect.handler.S3Handler;
 
 /**
@@ -33,6 +34,7 @@ public class Main {
         ServerArchitect architect = new ServerArchitect(new YamlConfigProvider(configLoc));
         architect.withHandler("amazons3", new S3Handler());
         architect.withHandler("github", new GitHubHandler());
+        architect.withHandler("mapservice", new MapServiceHandler());
         try {
             architect.start();
         }catch (Exception e){
