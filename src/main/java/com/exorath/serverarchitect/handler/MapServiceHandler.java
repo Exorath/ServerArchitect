@@ -45,11 +45,11 @@ public class MapServiceHandler implements ConfigHandler {
                     String mapType = StringLoader.getValue(mapsMap, "type");
                     String address = StringLoader.getValue(mapsMap, "address");
                     String userId = StringLoader.getValue(mapsMap, "userId");
-                    if (!mapsMap.containsKey("address")) {
+                    if (address == null) {
                         System.out.println("ServerArchitect MapService: No map 'address' provided.");
                         System.exit(1);
                     }
-                    if (!mapsMap.containsKey("userId")) {
+                    if (userId == null) {
                         System.out.println("ServerArchitect MapService: No map 'userId' provided.");
                         System.exit(1);
                     }
