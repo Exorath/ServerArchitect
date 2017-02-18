@@ -83,14 +83,18 @@ public class MapServiceHandler implements ConfigHandler {
     }
 
     public void loadSingleMap(String userId, String mapId, String envId, String versionId, MapServiceAPI mapServiceAPI, File mapsDir) throws Exception {
+        System.out.println("Loading map " + mapId + "(env: " + envId + ")...");
         File mapDir = new File(mapsDir, mapId);
         mapServiceAPI.downloadMapToFolder(new DownloadMapReq(userId, mapId, envId, versionId), mapDir);
+        System.out.println(mapId + " finished loading.");
     }
 
     public boolean loadMultipleMaps(String userId, String prefix, String envId, MapServiceAPI mapServiceAPI, File mapsDir) throws Exception {
+        System.out.println("Loading multiple maps with prefix " + prefix);
         GetMapsRes mapsRes = mapServiceAPI.getMaps(new GetMapsReq(userId, prefix, null, 1000));
         for (Map.Entry<String, MapInfo> entry : mapsRes.getMaps().entrySet())
             loadSingleMap(userId, entry.getKey(), envId, null, mapServiceAPI, mapsDir);
+        System.out.println(mapsRes.getMaps().size() + " maps loaded.");
         return true;
     }
 }
