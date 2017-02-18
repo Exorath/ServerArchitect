@@ -45,26 +45,26 @@ public class MapServiceHandler implements ConfigHandler {
                     String mapType = StringLoader.getValue(mapsMap, "type");
                     String address = StringLoader.getValue(mapsMap, "address");
                     String userId = StringLoader.getValue(mapsMap, "userId");
-                    if (!configSection.containsKey("address")) {
+                    if (!mapsMap.containsKey("address")) {
                         System.out.println("ServerArchitect MapService: No map 'address' provided.");
                         System.exit(1);
                     }
-                    if (!configSection.containsKey("userId")) {
+                    if (!mapsMap.containsKey("userId")) {
                         System.out.println("ServerArchitect MapService: No map 'userId' provided.");
                         System.exit(1);
                     }
                     if (mapType == null || mapType.equalsIgnoreCase("single")) {
-                        String mapId = (String) configSection.get("mapId");
-                        String envId = (String) configSection.get("envId");
+                        String mapId = (String) mapsMap.get("mapId");
+                        String envId = (String) mapsMap.get("envId");
                         if (mapId == null || envId == null) {
                             System.out.println("no 'mapId' or 'envId' defined in architect.yml.");
                             System.exit(1);
                         }
-                        String versionId = configSection.containsKey("versionId") ? (String) configSection.get("versionId") : null;
+                        String versionId = mapsMap.containsKey("versionId") ? (String) mapsMap.get("versionId") : null;
                         loadSingleMap(userId, mapId, envId, versionId, new MapServiceAPI(address), mapsDir);
                     } else if (mapType.equalsIgnoreCase("multi")) {
-                        String prefix = (String) configSection.get("prefix");
-                        String envId = (String) configSection.get("envId");
+                        String prefix = (String) mapsMap.get("prefix");
+                        String envId = (String) mapsMap.get("envId");
                         if (prefix == null || envId == null) {
                             System.out.println("no 'prefix' or 'envId' defined in architect.yml.");
                             System.exit(1);
