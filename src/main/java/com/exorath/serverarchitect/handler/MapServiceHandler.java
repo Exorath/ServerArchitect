@@ -84,8 +84,7 @@ public class MapServiceHandler implements ConfigHandler {
 
     public void loadSingleMap(String userId, String mapId, String envId, String versionId, MapServiceAPI mapServiceAPI, File mapsDir) throws Exception {
         System.out.println("Loading map " + mapId + "(env: " + envId + ")...");
-        File mapDir = new File(mapsDir, mapId);
-        mapServiceAPI.downloadMapToFolder(new DownloadMapReq(userId, mapId, envId, versionId), mapDir);
+        mapServiceAPI.downloadMapToFolder(new DownloadMapReq(userId, mapId, envId, versionId), mapsDir);
         System.out.println(mapId + " finished loading.");
     }
 
