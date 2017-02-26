@@ -19,6 +19,6 @@ echo "EULA accepted."
 
 # Starting server stuff
 echo "starting server..."
-java -jar server.jar
+tmux new -s spigot "gosu minecraft java -jar server.jar"
 echo "server is terminated."
 
