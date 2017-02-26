@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "startserver v0.0.20 initiated."
+echo "startserver v0.0.21 initiated."
 
 createEULA() {
   if [ ! -f eula.txt  ] ; then
@@ -19,6 +19,6 @@ echo "EULA accepted."
 
 # Starting server stuff
 echo "starting server..."
-tmux new -s spigot "su - minecraft -c 'exec java -jar server.jar'"
+tmux new -s spigot "su - minecraft -c 'exec java -jar server.jar nogui'"
 echo "server is terminated."
 
