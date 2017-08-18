@@ -16,10 +16,15 @@
 
 package com.exorath.serverarchitect.handler;
 
+import com.amazonaws.ClientConfiguration;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
@@ -78,9 +83,10 @@ public class S3Handler implements ConfigHandler {
             System.out.println("ServerArchitect: S3 jar config value not found.");
             System.exit(1);
         }
-        AmazonS3 s3 = new AmazonS3Client();
-        Region region = Region.getRegion(Regions.valueOf(regionId));
-        s3.setRegion(region);
+       AmazonS3 s3 = AmazonS3ClientBuilder.standard()
+               .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials(accessKeyId, secretKey)))
+               .withRegion(Regions.valueOf(regionId))
+               .build();
 
         try {
             s3.createBucket(bucketName);
