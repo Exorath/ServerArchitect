@@ -39,17 +39,17 @@ public class ServerArchitect {
     public void start() {
         if(handlersConfig == null)
             return;
-        for (Map.Entry<String, ConfigHandler> loaderByKey : handlersByKey.entrySet()) {
+        handlersByKey.entrySet().parallelStream().forEach(loaderByKey -> {
             System.out.println("ServerArchitect is now loading " + loaderByKey.getKey() + " config sections.");
             Map<String, Object> configSection = (Map) handlersConfig.get(loaderByKey.getKey());
-            if (configSection == null)//There is no configuration for this configHandler
-                continue;
-            ConfigHandler configHandler = loaderByKey.getValue();
+            if (configSection != null) {//There is no configuration for this configHandler
+                ConfigHandler configHandler = loaderByKey.getValue();
 
-            loadPluginsFromLoader(configHandler, configSection);
-            loadMapsFromLoader(configHandler, configSection);
-            loadJarFromLoader(configHandler, configSection);
-        }
+                loadPluginsFromLoader(configHandler, configSection);
+                loadMapsFromLoader(configHandler, configSection);
+                loadJarFromLoader(configHandler, configSection);
+            }
+        });
     }
 
     private void loadPluginsFromLoader(ConfigHandler configHandler, Map<String, Object> configSection) {

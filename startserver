@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "startserver v0.0.21 initiated."
+echo "startserver v0.0.24 initiated."
 
 createEULA() {
   if [ ! -f eula.txt  ] ; then
